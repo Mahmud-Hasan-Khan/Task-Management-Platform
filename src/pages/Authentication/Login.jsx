@@ -81,7 +81,7 @@ const Login = () => {
                         <div className='space-y-4'>
                             <div>
                                 <label className="label">
-                                    <span className="inputLabel">Email address</span>
+                                    <span className="inputLabel">Email Address</span>
                                 </label>
                                 <input
                                     type='email'
