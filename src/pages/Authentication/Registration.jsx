@@ -48,9 +48,7 @@ const Registration = () => {
                                 // create user entry in the database
                                 const userInfo = {
                                     name: name,
-                                    email: email,
-                                    role: 'user',
-                                    status: 'active'
+                                    email: email
                                 }
                                 console.log(userInfo);
                                 axiosOpen.post('/users', userInfo)

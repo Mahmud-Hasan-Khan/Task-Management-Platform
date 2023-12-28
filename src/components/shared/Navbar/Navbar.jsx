@@ -47,7 +47,7 @@ const Navbar = () => {
             {navLinks}
           </ul>
         </div>
-        <Link to="/"><img className='w-32 lg:w-[20%]' src={navLogo} alt="logo" /> </Link>
+        <Link to="/"><img className='w-[60%] lg:w-[90%]' src={navLogo} alt="logo" /> </Link>
       </div>
       <div className="navbar-center hidden lg:block">
         <ul className="menu menu-horizontal space-x-2 text-base font-medium">

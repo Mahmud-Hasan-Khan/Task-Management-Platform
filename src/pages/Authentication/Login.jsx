@@ -8,12 +8,11 @@ import Aos from "aos";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { FcGoogle } from 'react-icons/fc';
 
 const Login = () => {
 
-    const { loading, signIn } = useAuth();
-    const axiosSecure = useAxiosSecure();
+    const { loading, signIn, googleSignIn } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
@@ -28,19 +27,27 @@ const Login = () => {
         const toastId = toast.loading('Logging in...');
         try {
             await signIn(email, password)
-            const res = await axiosSecure.get(`/user/admin/${email}`)
-            const isAdmin = res.data.admin
-            // console.log(isAdmin);
-
-            if (isAdmin) {
-                navigate('/dashboard/adminHome');
-            } else {
-                navigate('/dashboard/userHome');
-            }
+            // navigate('/dashboard/userHome');
+            navigate(location?.state ? location?.state : "/dashboard/userHome")
 
             toast.success('Logged in successful', { id: toastId });
 
         }
+        catch (err) {
+            toast.error(err.message, { id: toastId });
+        }
+    }
+
+    const handleGoogleLogin = async () => {
+        const toastId = toast.loading('Logging in...');
+        try {
+            await googleSignIn(); // code wait here until success the work
+            toast.success('Logged in successful', { id: toastId });
+            // console.log('user login');
+            navigate(location?.state ? location?.state : "/dashboard/userHome")
+            // navigate('');
+        }
+        // if try fail to work then come this code
         catch (err) {
             toast.error(err.message, { id: toastId });
         }
@@ -133,6 +140,13 @@ const Login = () => {
                                     'Continue'
                                 )}
                             </button>
+                        </div>
+                        <div className="divider">OR</div>
+                        <div onClick={handleGoogleLogin}
+                            className='flex justify-center items-center space-x-2 border p-2 border-gray-300 border-rounded rounded-md cursor-pointer bg-[#4081ec] text-white'
+                        >
+                            <FcGoogle className='bg-white rounded-full' size={32} />
+                            <p className='text-center'>Continue with Google</p>
                         </div>
                     </form>
                     <p className='px-6 mt-2 text-sm font-medium text-center'>
